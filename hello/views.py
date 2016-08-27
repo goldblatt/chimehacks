@@ -20,8 +20,8 @@ def db(request):
 
 
 def stories(request): 
-	longitude = request.parameters.get("longitude")
-	latitude = request.parameters.get("latitude")
+	longitude = request.GET.get("longitude")
+	latitude = request.GET.get("latitude")
 
 	stories = Stories.objects.all()
 
