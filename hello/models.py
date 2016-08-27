@@ -3,3 +3,11 @@ from django.db import models
 # Create your models here.
 class Greeting(models.Model):
     when = models.DateTimeField('date created', auto_now_add=True)
+
+
+class Stories(models.Model): 
+    html_text = models.TextField(null=True, blank=True)
+    timestamp = models.DateTimeField()  # Client timestamp
+    longitude = models.PositiveIntegerField()
+    latitude = models.PositiveIntegerField()
+
