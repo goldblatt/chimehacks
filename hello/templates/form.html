@@ -102,7 +102,7 @@
 	    <div class="panel-heading" role="tab" id="headingFive">
 	      <h4 class="panel-title">
 	        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-	          Where did the assault take place?
+	          What kind of a location was it?
 	        </a>
 	      </h4>
 	    </div>
@@ -118,6 +118,23 @@
 							<option>At or near your home </option>
 							<option>At or near a relative's home </option>
 						</select>
+				  </div>
+	      </div>
+	    </div>
+	  </div>
+	  <div class="panel panel-default">
+	    <div class="panel-heading" role="tab" id="headingTen">
+	      <h4 class="panel-title">
+	        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTen" aria-expanded="false" aria-controls="collapseTen">
+	          Where did the assault take place?
+	        </a>
+	      </h4>
+	    </div>
+	    <div id="collapseTen" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTen">
+	      <div class="panel-body">
+				  <div class="form-group">
+				    <label for="specificLocationInput">You can be as specific or broad as you'd like. Sharing is optional.</label>
+				    <textarea class="form-control" id = "specificLocationInput"rows="1"></textarea>
 				  </div>
 	      </div>
 	    </div>
@@ -209,38 +226,3 @@
 </div>
 
 <!-- <div class='accordion-container'>some box!!!!!!</div> -->
-
-<script type="text/javascript">
-//$('#collapseThree').collapse('toggle')
-$('#addStoryIcon').click(function(e) {
-  $('.accordion-container').addClass('accordion-container-show');
-});
-
-$('#submit').click(function(e) {
-	$('.accordion-container').hide();
-	var data = {};
-  e.preventDefault();
-  console.log('submit clicked')
-  data.gender = $('#genderInput').val().trim();
-  data.type = $('#typeInput').val().trim();
-  data.assailant = $('#assailantInput').val().trim();
-  data.location = $('#locationInput').val().trim();
-  data.report = $('input[name="reportInput"]:checked').val();
-  data.story = $('#storyInput').val().trim();
-  data.permission = $('input[name="permissionInput"]:checked').val();
-
-  //TODO: data.longitude and data.latitude
-  console.log(data)
-  $.ajax({
-      type:'POST',
-      url: '/api/add/story',
-      data: data,
-      success: function() {
-          console.log('adding story worked');
-      },
-      error: function() {
-          console.log('error adding story');
-      }
-  });
-});
-</script>

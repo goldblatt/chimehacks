@@ -1,14 +1,95 @@
+var map;
+var reported_lng;
+var reported_lat;
+
 function init() {
-  var map = new StoryMap();
+  map = new StoryMap();
   //getting user geolocation takes too long to load
   // if ("geolocation" in navigator) {
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     map = new StoryMap(position.coords.latitude, position.coords.longitude);
-  //   }, function(err) { map = new StoryMap(); });
+  //   }, function(err) { console.log('error loading new map' + err); });
   // }
-  // } else {
-  //   map = new StoryMap();
-  // }
+  initAutocomplete();
+  initForm();
+}
+
+function initForm() {
+
+$('#addStoryIcon').click(function(e) {
+  $('.accordion-container').addClass('accordion-container-show');
+});
+
+$('#submit').click(function(e) {
+  $('.accordion-container').hide();
+  var data = {};
+  e.preventDefault();
+  console.log('submit clicked')
+  data.gender = $('#genderInput').val().trim();
+  data.type = $('#typeInput').val().trim();
+  data.assailant = $('#assailantInput').val().trim();
+  data.location = $('#locationInput').val().trim();
+  data.report = $('input[name="reportInput"]:checked').val();
+  data.story = $('#storyInput').val().trim();
+  data.permission = $('input[name="permissionInput"]:checked').val();
+  data.longitude = reported_lng;
+  data.latitude = reported_lat;
+  console.log(data)
+  $.ajax({
+      type:'POST',
+      url: '/api/add/story',
+      data: data,
+      success: function() {
+          console.log('adding story worked');
+      },
+      error: function() {
+          console.log('error adding story');
+      }
+  });
+});
+
+}
+
+function initAutocomplete() {
+    var input1 = document.getElementById('map_search');
+    var input2 = document.getElementById('specificLocationInput');
+    var mapSearchBox = new google.maps.places.SearchBox(input1);
+    var storyLocationBox = new google.maps.places.SearchBox(input2);
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    mapSearchBox.addListener('places_changed', function() {
+      var places = mapSearchBox.getPlaces();
+      if (!places) {
+      return;
+      }
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        } else {
+          console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
+          map.map.setCenter({lat:place.geometry.location.lat(), lng: place.geometry.location.lng()});
+        }
+      });
+    });
+
+    storyLocationBox.addListener('places_changed', function() {
+    var places = storyLocationBox.getPlaces();
+      if (!places) {
+      return;
+      }
+      places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      } else {
+        console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
+        reported_lat = place.geometry.location.lat();
+        reported_lng = place.geometry.location.lng();
+      }
+    });
+  });
 }
 
 class StoryMap {

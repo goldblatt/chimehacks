@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-
+    
 {% block content %}
 {% include "map.html" %}
 {% include "form.html" %}
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDejAzAJyykimzQANJYLRei8JBljZ3zWvw&libraries=places&callback=init"
+     async defer></script>
 {% endblock %}
