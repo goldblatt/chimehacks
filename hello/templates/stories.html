@@ -5,13 +5,13 @@
   <div class="container">
 
 
-<h2>Page View Report</h2>
+<h2>Stories View Report</h2>
 
 
 <ul>
 
 {% for story in stories %}
-    <li>{{ story.id }}</li>
+    <li>{{ story.longitude }}, {{ story.latitude }}</li>
 {% endfor %}
 
 </ul>
