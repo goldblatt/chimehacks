@@ -28,7 +28,7 @@ class Command(BaseCommand):
                 place_id = result['place_id']
                 if not Resources.objects.filter(place_id=place_id):
                     Resources.objects.create(
-                        latitude=result['geometry']['location']['lat'], 
-                        longitude=result['geometry']['location']['lng'],
+                        lat=result['geometry']['location']['lat'], 
+                        lng=result['geometry']['location']['lng'],
                         name=result['name'],
                         place_id=place_id).save()

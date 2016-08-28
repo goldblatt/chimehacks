@@ -30,8 +30,8 @@ def resources(request):
 
 def create_resource(request):
 	Resources.objects.create(
-		latitude = float(request.GET.get("latitude")),
-		longitude = float(request.GET.get("longitude")),
+		lat = float(request.GET.get("lat")),
+		lng = float(request.GET.get("lng")),
 		place_id = request.GET.get("place_id"),
 		name = request.GET.get("name"),
 		address = request.GET.get("address"),
