@@ -18,20 +18,25 @@ class StoryMap {
       scrollwheel: false,
       zoom: 12
     });
+    var stories; 
+    var resources;
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
-    this.stories = this.addMarkers([
-      {lat: 37.479907, lng: -122.145378, assailant: 'family', gender: 'cis female', type_of_abuse: 'incest'},
-      {lat: 37.480046, lng: -122.150570, assailant: 'outside', gender: 'cis female', type_of_abuse: 'gang rape'},
-      {lat: 37.479400, lng: -122.156246, assailant: 'work', gender: 'cis female', type_of_abuse: 'sexual harassment'}],
-      storyPin, true
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng); 
+    stories_query.done(
+      function(stories){
+        this.stories = this.addMarkers(JSON.parse(stories),
+        storyPin, true
     );
-    this.resources = this.addMarkers([
-      {lat: 37.409101, lng: -122.032489},
-      {lat: 37.387982, lng: -122.134647},
-      {lat: 37.433973, lng: -122.215460}],
-      resourcePin, false
+      }.bind(this));
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng); 
+    resources_queries.done(
+      function(resources){
+        this.resources = this.addMarkers(JSON.parse(resources),
+        resourcePin, false
     );
+      }.bind(this));
+
     this.setEventHandlers();
   }
 
@@ -50,9 +55,10 @@ class StoryMap {
   // Adds a marker to the map.
   addMarkers(locations, pinImg, showInfoWindow) {
     var markers = [];
-    for (let location of locations) {
+    for (let location_object of locations) {
+      var location = location_object.fields;
       let marker = new google.maps.Marker({
-        position: {lat: location.lat, lng: location.lng},
+        position: {lat: parseFloat(location.lat), lng: parseFloat(location.lng)},
         map: null,
         icon: pinImg,
         markerId: location.id,
