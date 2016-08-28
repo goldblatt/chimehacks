@@ -30,7 +30,7 @@ body, html {
   text-align: center;
   height: 35px;
   border-radius: 2px;
-  background-color: #DB5461;
+  background-color: #5B618A;
   color: white;
   font-size: 15px;
 }
@@ -43,14 +43,16 @@ body, html {
   height: 40px;
   clear: left;
   border-radius: 2px;
-  background-color: #86CB92;
   color: #2C363F;
   font-size: 20px;
   font-weight: 700;
   width: 190px;
 }
 
-.read-story-btn:hover {
-  background-color: #4db35f;
-  cursor: pointer;
+.story-text {
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  color: #2C363F;
+  max-height: 200px;
+  overflow: hidden;
 }
