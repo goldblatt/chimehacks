@@ -20,22 +20,25 @@ class StoryMap {
     });
     var storyPin = new google.maps.MarkerImage("/static/pins_resource.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_stories.png");
-    this.stories = this.addMarkers([
-      {lat: 37.422327, lng: -122.084401, assailant: 'domestic', type_of_abuse: 'rape', gender: 'female', location: 'college campus', reported: 'yes', pk: 1}], storyPin, true);
-    // var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
-    // stories_query.done(
-    //   function(stories){
-    //     this.stories = this.addMarkers(JSON.parse(stories),
-    //     storyPin, true
-    // );
-    //   }.bind(this));
-    // var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
-    // resources_queries.done(
-    //   function(resources){
-    //     this.resources = this.addMarkers(JSON.parse(resources),
-    //     resourcePin, false
-    // );
-    //   }.bind(this));
+    // this.stories = this.addMarkers([
+    //   {lat: 37.422327, lng: -122.084401, assailant: 'domestic', type_of_abuse: 'rape', gender: 'female', location: 'college campus', reported: 'yes', pk: 1, story: "I was raped by a guy I was dating. I fell asleep and woke up to him raping me. It was very awkward and I never confronted him about it."}], storyPin, 'stories');
+    // this.resources = this.addMarkers([
+    //   {lat: 37.422327, lng: -122.084401, name: 'Planned Parenthood', address: '1 Hacker Way, Menlo Park', url: 'facebook.com', phone_number: '(408) 666-7867'},
+    // {lat: 37.484556, lng: -122.147845, name: 'Facebook', address: '1 Hacker Way, Menlo Park', url: 'facebook.com', phone_number: '(408) 666-7867'}], storyPin, 'resources');
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
+    stories_query.done(
+      function(stories){
+        this.stories = this.addMarkers(JSON.parse(stories),
+        storyPin, 'stories'
+    );
+      }.bind(this));
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
+    resources_queries.done(
+      function(resources){
+        this.resources = this.addMarkers(JSON.parse(resources),
+        resourcePin, 'resources'
+    );
+      }.bind(this));
 
     this.setEventHandlers();
   }
@@ -66,10 +69,10 @@ class StoryMap {
   }
 
   // Adds a marker to the map.
-  addMarkers(locations, pinImg, showInfoWindow) {
+  addMarkers(locations, pinImg, type) {
     var markers = [];
-    for (let location of locations) { //location_object
-      // var location = location_object.fields;
+    for (let location_object of locations) {
+      var location = location_object.fields;
       let marker = new google.maps.Marker({
         position: {lat: parseFloat(location.lat), lng: parseFloat(location.lng)},
         map: null,
@@ -77,32 +80,47 @@ class StoryMap {
         animation: google.maps.Animation.DROP,
       });
       marker = Object.assign(marker, location);
-      if (showInfoWindow) {
+      let infowindow;
+      if (type === 'stories') {
         var fbLink = "";
         if (location.post_id) {
           var post_tags = location.post_id.split("_");
           fbLink = 'https://www.facebook.com/permalink.php?story_fbid=' + post_tags[1] + '&id=' + post_tags[0];
         }
         var reported = location.report === 'yes' ? 'reported' : 'not reported';
-        let infowindow = new google.maps.InfoWindow({
+        infowindow = new google.maps.InfoWindow({
           content: '<div class="story-bubble">'+
             '<div class="map-filter">'+location.assailant+'</div>'+
             '<div class="map-filter">'+location.type_of_abuse+'</div>'+
             '<div class="map-filter">'+location.gender+'</div>'+
-            '<a href="'+fbLink+'" class="fb-link"><img src="/static/facebook_logo.png"></a>'+
             '<div class="map-filter">'+location.location+'</div>'+
             '<div class="map-filter">'+reported+'</div>'+
+            '<button class="btn btn-default read-story-btn">read story</button></div>'+
             '<div class="story-text">'+location.story+'</div>'+
-            '<button class="btn btn-default read-story-btn">read story</button></div>'
+            '<a href="'+fbLink+'" class="fb-btn display-none"><img class="fb-logo" src="/static/fb_logo.png">share</a>'
         });
-        marker.addListener('click', function() {
-          if (this.openWindow) {
-			      this.openWindow.close();
-		      }
-          infowindow.open(this.map, marker);
-          this.openWindow = infowindow;
-        }.bind(this));
+      } else { // type = resources
+        var contentString = '<div class="resource-name">'+location.name+'</div>';
+        if (location.address) { contentString += '<div class="resource-address">'+location.address+'</div>';  }
+        if (location.phone_number) { contentString += '<div class="resource-phone">'+location.phone_number+'</div>';  }
+        if (location.url) { contentString += '<div class="resource-url">'+location.url+'</div>'; }
+        infowindow = new google.maps.InfoWindow({ content: contentString });
       }
+      marker.addListener('click', function() {
+        if (this.openWindow) {
+          this.openWindow.close();
+        }
+        infowindow.open(this.map, marker);
+        if (type === 'stories') {
+          $('.read-story-btn').on('click', function(evt) {
+            $(evt.currentTarget).hide();
+            $('.story-text').show();
+            $('.fb-btn').removeClass('display-none');
+          });
+        }
+
+        this.openWindow = infowindow;
+      }.bind(this));
       markers.push(marker);
     }
     return markers;
