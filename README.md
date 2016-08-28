@@ -7,11 +7,21 @@ ADD DB migrations to hello/models.py
 To run generate db migration files: `python manage.py makemigrations`
 To deploy to herokue `git push origin master`, `git push heroku master`, `heroku run python manage.py migrate`
 
-To delete all rows in DB:
+
+To reset the DB to a clean state:
+
+1. Delete all rows in DB:
+
 `python manage.py flush`
 
-To undo all migrations:
+2. Undo all migrations:
+
 `python manage.py migrate hello zero`
 
-To run all migrations:
+3. Redo all migrations
+
 `python manage.py migrate`
+
+4. Run command to fill DB with real resources
+
+`python manage.py import_resources`

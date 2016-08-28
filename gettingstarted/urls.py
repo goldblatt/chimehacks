@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^api/stories', hello.views.stories, name="stories"),
     url(r'^api/add/story', hello.views.add_story, name="add_story"),
     url(r'^api/resources', hello.views.resources, name="resources"),
+    url(r'^api/create_resource', hello.views.create_resource, name="create_resource"),
 ]

@@ -55,5 +55,23 @@ def add_story(request):
         permission=permission   
     )
 
-    return JsonResponse(serializers.serialize("json", [story]), safe=False)
+    return JsonResponse("success")
+
+def create_resource(request):
+	Resources.objects.create(
+		latitude = float(request.GET.get("latitude")),
+		longitude = float(request.GET.get("longitude")),
+		place_id = request.GET.get("place_id"),
+		name = request.GET.get("name"),
+		address = request.GET.get("address"),
+		city = request.GET.get("city"),
+		state = request.GET.get("state"),
+		country = request.GET.get("country"),
+		zip_code = request.GET.get("zip_code"),
+		description = request.GET.get("description"),
+		phone_number = request.GET.get("phone_number"),
+		url = request.GET.get("url")
+	).save()
+
+	return JsonResponse('success')
 
