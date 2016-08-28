@@ -101,6 +101,8 @@ class StoryMap {
     });
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
+    // this.stories = this.addMarkers([
+    //   {lat: 37.422327, lng: -122.084401, assailant: 'domestic', type_of_abuse: 'rape', gender: 'female', location: 'college campus', reported: 'yes', pk: 1}], storyPin, true);
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
     stories_query.done(
       function(stories){
@@ -129,6 +131,21 @@ class StoryMap {
     $('.toggle-filters').on('click', function(evt) {
       $('.filters-list').toggleClass('expand-filters');
     });
+    $('.filter_box').on('click', function(e) {
+      var fieldvalue =  $(this).text().trim();
+      var fieldname = $(this).attr('class').split(' ')[1];
+      console.log(fieldvalue, fieldname)
+    });
+  }
+
+  filterByField(objects, fieldName, fieldValue) {
+    var matches = [];
+    for (let object of objects) {
+      if (object[fieldName] === fieldValue) {
+        matches.push(object);
+      }
+    }
+    return matches;
   }
 
   togglePins(type, evt) {
