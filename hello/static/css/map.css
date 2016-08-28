@@ -18,12 +18,14 @@ body, html {
 
 .story-bubble {
   width: 200px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 400;
 }
 
 .map-filter {
   float: left;
   margin: 3px;
-  padding: 10px;
+  padding: 6px;
   vertical-align: middle;
   text-align: center;
   height: 35px;
@@ -35,7 +37,7 @@ body, html {
 
 .read-story-btn {
   margin: 3px;
-  padding: 10px;
+  padding: 6px;
   text-align: center;
   vertical-align: middle;
   height: 40px;
@@ -44,4 +46,10 @@ body, html {
   background-color: #86CB92;
   color: #2C363F;
   font-size: 20px;
+  font-weight: 700;
+}
+
+.read-story-btn:hover {
+  background-color: #4db35f;
+  cursor: pointer;
 }
