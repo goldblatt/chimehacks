@@ -1,15 +1,16 @@
 #addStoryIcon{
 	position: absolute;
-    bottom: 30px;
-    max-height: 80px;
-    max-width: 80px;
-    height: auto;
-    width: auto;
-    cursor: pointer;
-		left: 10px;
+  bottom: 30px;
+  max-height: 80px;
+  max-width: 80px;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+	left: 30px;
 }
 
 #addStoryIcon:hover {
+<<<<<<< HEAD
   opacity: 0.6;
 }
 
@@ -26,6 +27,20 @@
 
 #safe-exit-icon:hover {
   opacity: 0.8;
+}
+
+#safe-exit-icon {
+	position: absolute;
+  bottom: 30px;
+  max-height: 80px;
+  max-width: 80px;
+  height: auto;
+  width: auto;
+  cursor: pointer;
+	right: 30px;
+}
+#safe-exit-icon:hover {
+	opacity: 0.8;
 }
 
 .container .panel-default>.panel-heading {
