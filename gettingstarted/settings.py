@@ -79,7 +79,7 @@ WSGI_APPLICATION = 'gettingstarted.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'rita',                      # Or path to database file if using sqlite3
+        'NAME': 'local',                      # Or path to database file if using sqlite3
         'PASSWORD': 'password',
     }
 }
