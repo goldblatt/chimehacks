@@ -143,6 +143,21 @@ class StoryMap {
     $('.toggle-filters').on('click', function(evt) {
       $('.filters-list').toggleClass('expand-filters');
     });
+    $('.filter_box').on('click', function(e) {
+      var fieldvalue =  $(this).text().trim();
+      var fieldname = $(this).attr('class').split(' ')[1];
+      console.log(fieldvalue, fieldname)
+    });
+  }
+
+  filterByField(objects, fieldName, fieldValue) {
+    var matches = [];
+    for (let object of objects) {
+      if (object[fieldName] === fieldValue) {
+        matches.push(object);
+      }
+    }
+    return matches;
   }
 
   togglePins(type, evt) {
