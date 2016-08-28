@@ -99,22 +99,20 @@ class StoryMap {
       scrollwheel: false,
       zoom: 12
     });
-    var stories;
-    var resources;
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
     stories_query.done(
       function(stories){
         this.stories = this.addMarkers(JSON.parse(stories),
-        storyPin, true
+        storyPin, true, "stories"
     );
       }.bind(this));
     var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
     resources_queries.done(
       function(resources){
         this.resources = this.addMarkers(JSON.parse(resources),
-        resourcePin, false
+        resourcePin, false, "resources"
     );
       }.bind(this));
 
@@ -137,12 +135,18 @@ class StoryMap {
   }
 
   // Adds a marker to the map.
-  addMarkers(locations, pinImg, showInfoWindow) {
+  addMarkers(locations, pinImg, showInfoWindow, type_of_marker) {
     var markers = [];
     for (let location_object of locations) {
       var location = location_object.fields;
+      var lat = parseFloat(location.lat); 
+      var lng = parseFloat(location.lng); 
+      if (type_of_marker == "stories") {
+        lat = parseFloat(lat) + Math.random() * .01
+        lng = parseFloat(lng) + Math.random() * .01
+      }
       let marker = new google.maps.Marker({
-        position: {lat: parseFloat(location.lat), lng: parseFloat(location.lng)},
+        position: {lat: lat, lng: lng},
         map: null,
         icon: pinImg,
         markerId: location.id,
