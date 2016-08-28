@@ -1,0 +1,181 @@
+/*!
+ * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+/* Global Styles */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+.img-portfolio {
+    margin-bottom: 30px;
+}
+
+.img-hover:hover {
+    opacity: 0.8;
+}
+
+/* Home Page Carousel */
+
+header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+/* 404 Page Styles */
+
+.error-404 {
+    font-size: 100px;
+}
+
+/* Pricing Page Styles */
+
+.price {
+    display: block;
+    font-size: 50px;
+    line-height: 50px;
+}
+
+.price sup {
+    top: -20px;
+    left: 2px;
+    font-size: 20px;
+}
+
+.period {
+    display: block;
+    font-style: italic;
+}
+
+/* Footer Styles */
+
+footer {
+    margin: 50px 0;
+}
+
+/* Responsive Styles */
+
+@media(max-width:991px) {
+    .customer-img,
+    .img-related {
+        margin-bottom: 30px;
+    }
+}
+
+@media(max-width:767px) {
+    .img-portfolio {
+        margin-bottom: 15px;
+    }
+
+    header.carousel .carousel {
+        height: 70%;
+    }
+}
+
+/* Locol Trip Page*/
+
+html {
+  --purple = #55346b;
+  --light-gray = #6e6c6a;
+  --dark-gray = #373533;
+}
+
+.navbar-header .navbar-brand {
+  padding-top: 10px;
+}
+
+.locol-icon-bar {
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  margin-top: 20px;
+}
+
+.navbar-nav>li>a.locol-header-link {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.locol-user-icon-img {
+  border-radius: 50%;
+  border: 1px solid #6e6c6a;
+  height: 30px;
+}
+
+.locol-icon-bar {
+  padding: 20px;
+}
+
+.locol-host-profile_pic {
+  border-radius: 50%;
+  border: 1px solid darkGrey;
+  height: 150px;
+  width: 150px;
+}
+
+.locol-host-name {
+  margin-top: 10px;
+  width: 150px;
+  text-align: center;
+}
+
+.locol-review {
+  overflow: auto;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.locol-review-pic {
+  border-radius: 50%;
+  border: 1px solid darkGrey;
+  height: 75px;
+}
+
+.locol-review-name {
+  width: 75px;
+  text-align: center;
+}
+
+#locol-snapshot {
+    list-style: none;
+    max-width: 90%;
+}
+
+#locol-snapshot li{
+    display: inline-block;
+    padding: 20px;
+
+}
+
+#locol-snapshot img{
+    max-width: 200px;
+    max-height: 200px;
+}
+
+
+/*Locol Search Page*/
+
+.locol-trips {
+  margin-top: 35px;
+}
