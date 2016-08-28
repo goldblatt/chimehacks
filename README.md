@@ -25,3 +25,6 @@ To reset the DB to a clean state:
 4. Run command to fill DB with real resources
 
 `python manage.py import_resources`
+
+5. Run command to fill DB with Stories data
+`python manage.py create_stories`
