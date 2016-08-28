@@ -74,9 +74,10 @@ function initAutocomplete() {
             var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
             resources_queries.done(
               function(resources){
-                map.resources = map.addMarkers(JSON.parse(resources),
-                resourcePin, false, "resources"
-              );
+                map.resources = map.resources.concat(
+                  map.addMarkers(JSON.parse(resources),
+                  resourcePin, false, "resources")
+                );
               map.clearMarkers(map.resources);
               map.showMarkers(map.resources);
             }.bind(map));
@@ -103,7 +104,10 @@ function initAutocomplete() {
 }
 
 class StoryMap {
-  constructor(lat = 37.422327, lng = -122.084401) { //facebook: lat = 37.484556, lng = -122.147845
+  constructor(lat = 37.766731, lng = -122.425782) { 
+  //facebook: lat = 37.484556, lng = -122.147845
+  // SF: lat = 37.766731, lng = -122.425782
+  // Centering on SF since we have resource pins
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: lat, lng: lng},
       scrollwheel: false,
