@@ -11,6 +11,7 @@
 
 #addStoryIcon:hover {
   opacity: 0.6;
+
 }
 
 .container .panel-default>.panel-heading {
@@ -33,6 +34,7 @@
 
 .panel-body {
 	width: 362px;
+    
 }
 
 /*.accordion-container {

@@ -104,6 +104,7 @@ class StoryMap {
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
     stories_query.done(
       function(stories){
+        console.log(stories)
         this.stories = this.addMarkers(JSON.parse(stories),
         storyPin, true, "stories"
     );
@@ -124,6 +125,9 @@ class StoryMap {
     $('.toggle-resources').on('click', this.togglePins.bind(this, 'resources'));
     $('#addStoryIcon').on('click', function(){
       $('.accordion-container').toggle();
+    });
+    $('.toggle-filters').on('click', function(evt) {
+      $('.filters-list').toggleClass('expand-filters');
     });
   }
 
