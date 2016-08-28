@@ -22,16 +22,13 @@
     top: 0px;
 		left: 0px;
     display: block;
-    width:0px;
+    width:400px;
     padding-right: 18px;
     padding-left: 18px;
     margin-right: 18px;
     background-color: white;
 		border-radius: 2px;
-		transition: width 1s;
-}
-.form-accordion-show {
-	width: 400px important!;
+		display: none;
 }
 
 .panel-body {

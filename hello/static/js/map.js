@@ -18,18 +18,18 @@ class StoryMap {
       scrollwheel: false,
       zoom: 12
     });
-    var stories; 
+    var stories;
     var resources;
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
-    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng); 
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
     stories_query.done(
       function(stories){
         this.stories = this.addMarkers(JSON.parse(stories),
         storyPin, true
     );
       }.bind(this));
-    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng); 
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
     resources_queries.done(
       function(resources){
         this.resources = this.addMarkers(JSON.parse(resources),
@@ -44,8 +44,7 @@ class StoryMap {
     $('.toggle-stories').on('click', this.togglePins.bind(this, 'stories'));
     $('.toggle-resources').on('click', this.togglePins.bind(this, 'resources'));
     $('#addStoryIcon').on('click', function(){
-      debugger;
-      $('.accordion-container').addClass('.form-accordion-show');
+      $('.accordion-container').toggle();
     });
   }
 

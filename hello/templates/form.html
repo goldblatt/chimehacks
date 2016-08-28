@@ -64,7 +64,7 @@
 							<option>Pornography</option>
 							<option>Cyber bullying </option>
 							<option>Genital mutilation </option>
-							<option>Threats of physical violence </option> 
+							<option>Threats of physical violence </option>
 							<option>Incest </option>
 						</select>
 				  </div>
@@ -115,7 +115,7 @@
 							<option>A public space </option>
 							<option>On a college campus </option>
 							<option>Family </option>
-							<option>At or near your home </option> 
+							<option>At or near your home </option>
 							<option>At or near a relative's home </option>
 						</select>
 				  </div>
@@ -217,8 +217,9 @@ $('#addStoryIcon').click(function(e) {
 });
 
 $('#submit').click(function(e) {
+	$('.accordion-container').hide();
 	var data = {};
-  e.preventDefault();	
+  e.preventDefault();
   console.log('submit clicked')
   data.gender = $('#genderInput').val().trim();
   data.type = $('#typeInput').val().trim();
