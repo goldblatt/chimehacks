@@ -226,6 +226,10 @@ html {
   color: white;
   cursor:pointer;
 }
+.filter_box .selected {
+  background: #5B618a;
+  color: white;
+}
 
 .filters-list ul{
   list-style: none;

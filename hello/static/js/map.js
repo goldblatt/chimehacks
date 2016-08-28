@@ -1,6 +1,7 @@
 var map;
 var reported_lng;
 var reported_lat;
+var stories_data;
 
 function init() {
   map = new StoryMap();
@@ -34,7 +35,6 @@ $('#submit').click(function(e) {
   data.permission = $('input[name="permissionInput"]:checked').val();
   data.longitude = reported_lng;
   data.latitude = reported_lat;
-  console.log(data)
   $.ajax({
       type:'POST',
       url: '/api/add/story',
@@ -98,6 +98,7 @@ function initAutocomplete() {
         console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
         reported_lat = place.geometry.location.lat();
         reported_lng = place.geometry.location.lng();
+        // map = new StoryMap(place.geometry.location.lat(), place.geometry.location.lng());
       }
     });
   });
@@ -118,10 +119,11 @@ class StoryMap {
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lng=" + lng);
     stories_query.done(
       function(stories){
-        console.log(stories)
-        this.stories = this.addMarkers(JSON.parse(stories),
+        stories_data = JSON.parse(stories);
+        this.stories = this.addMarkers(stories_data,
         storyPin, true, "stories"
     );
+        console.log('stories_data: ', stories_data)
       }.bind(this));
     var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lng=" + lng);
     resources_queries.done(
@@ -144,16 +146,24 @@ class StoryMap {
       $('.filters-list').toggleClass('expand-filters');
     });
     $('.filter_box').on('click', function(e) {
+      $(this).toggleClass('')
       var fieldvalue =  $(this).text().trim();
       var fieldname = $(this).attr('class').split(' ')[1];
-      console.log(fieldvalue, fieldname)
+      console.log(map.markers)
+      stories_data = map.filterByField(stories_data, fieldname, fieldvalue)
+      console.log('filtered story data:',stories_data);
+      var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
+      this.addMarkers(stories_data, storyPin, true, "stories");
+      //map.clearMarkers(map.markers);
+      //map.showMarkers(marker_matches)
     });
   }
 
   filterByField(objects, fieldName, fieldValue) {
     var matches = [];
     for (let object of objects) {
-      if (object[fieldName] === fieldValue) {
+
+      if (object['fields'][fieldName]=== fieldValue) {
         matches.push(object);
       }
     }
