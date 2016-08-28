@@ -11,20 +11,14 @@ To deploy to herokue `git push origin master`, `git push heroku master`, `heroku
 To reset the DB to a clean state:
 
 1. Delete all rows in DB:
-
 `python manage.py flush`
-
 2. Undo all migrations:
-
 `python manage.py migrate hello zero`
-
 3. Redo all migrations
-
 `python manage.py migrate`
-
 4. Run command to fill DB with real resources
-
 `python manage.py import_resources`
-
 5. Run command to fill DB with Stories data
 `python manage.py create_stories`
+6. Run command to fill DB with rest of info for resources
+`python manage.py import_resources_additional_info`
