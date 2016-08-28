@@ -24,6 +24,11 @@ body {
     opacity: 0.8;
 }
 
+#intro_modal {
+    text-align: center;
+    top: 80px;
+}
+
 /* Home Page Carousel */
 
 header.carousel {

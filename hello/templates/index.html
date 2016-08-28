@@ -2,6 +2,21 @@
 {% load staticfiles %}
     
 {% block content %}
+<div class="modal fade" id="intro_modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Your Story is Valuable</h4>
+      </div>
+      <div class="modal-body">
+        <p> Welcome to a global movement of sexual assault survivors and their supporters.
+        <p> Find resources. Browse stories. Add yours. 
+        <p> We believe you. &hearts;</p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 {% include "map.html" %}
 {% include "form.html" %}
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDejAzAJyykimzQANJYLRei8JBljZ3zWvw&libraries=places&callback=init"

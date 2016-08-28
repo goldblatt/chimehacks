@@ -4,6 +4,7 @@ var reported_lat;
 var stories_data;
 
 function init() {
+  $('#intro_modal').modal('show');
   map = new StoryMap();
   //getting user geolocation takes too long to load
   // if ("geolocation" in navigator) {
@@ -190,7 +191,7 @@ class StoryMap {
       }
       let marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
-        map: null,
+        map: this.map,
         icon: pinImg,
         markerId: location.id,
         animation: google.maps.Animation.DROP,
