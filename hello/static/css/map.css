@@ -49,10 +49,48 @@ body, html {
   width: 190px;
 }
 
+.fb-btn {
+  margin: 3px;
+  padding: 6px;
+  height: 40px;
+  clear: left;
+  border-radius: 2px;
+  font-size: 20px;
+  font-weight: 700;
+  color: white;
+  width: 190px;
+  background-color: #3B599A;
+  text-align: center;
+  vertical-align: middle;
+  display: block;
+}
+
+.fb-btn:hover {
+  opacity: 0.8;
+  text-decoration: none;
+  color: white;
+}
+
+.display-none {
+  display: none;
+}
+
+.fb-logo {
+  margin-left: -40px;
+  margin-right: 20px;
+}
+
 .story-text {
   border: 1px solid #ccc;
   border-radius: 2px;
   color: #2C363F;
   max-height: 200px;
   overflow: hidden;
+  clear: left;
+  padding: 6px;
+  margin-left: 3px;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  width: 190px;
+  display: none;
 }
