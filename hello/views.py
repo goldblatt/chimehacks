@@ -25,6 +25,6 @@ def stories(request):
 
 	stories = Stories.objects.all()
 
-	return render(request, 'db.html', {'greetings': stories})
+	return render(request, 'stories.html', {'stories': stories})
 
 

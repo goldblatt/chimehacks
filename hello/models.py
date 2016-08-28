@@ -7,7 +7,7 @@ class Greeting(models.Model):
 
 class Stories(models.Model): 
     html_text = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField()  # Client timestamp
+    timestamp = models.DateTimeField(auto_now_add=True)  # Client timestamp
     longitude = models.DecimalField(max_digits=15, decimal_places=15)
     latitude = models.DecimalField(max_digits=15, decimal_places=15)
 
