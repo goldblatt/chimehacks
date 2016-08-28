@@ -6,20 +6,36 @@
     height: auto;
     width: auto;
     cursor: pointer;
+		left: 10px;
 }
 
-#accordion{
+#addStoryIcon:hover {
+  opacity: 0.6;
+}
+
+.container .panel-default>.panel-heading {
+	background-color: #eff0f5;
 }
 
 .accordion-container{
 	position: absolute;
     top: 0px;
+		left: 0px;
     display: block;
-    max-width:400px;
+    width:0px;
     padding-right: 18px;
     padding-left: 18px;
     margin-right: 18px;
-    background-color: #acadbc;
+    background-color: white;
+		border-radius: 2px;
+		transition: width 1s;
+}
+.form-accordion-show {
+	width: 400px important!;
+}
+
+.panel-body {
+	width: 362px;
 }
 
 /*.accordion-container {
@@ -34,7 +50,7 @@
    -webkit-transition-property: max-width;
     -webkit-transition-duration: 0.5s;
     -webkit-transition-timing-function: ease-in-out;
-   
+
 
 	transition-property: max-width;
     transition-duration: 0.5s !important;
@@ -45,7 +61,7 @@
     max-width: 100px;
    -webkit-transition-property: max-width;
     -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;    
+    -webkit-transition-timing-function: ease-in-out;
     transition-property: max-width;
     transition-duration: 0.5s !important;
     transition-timing-function: ease-in-out !important;

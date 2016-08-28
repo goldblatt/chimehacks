@@ -38,6 +38,10 @@ class StoryMap {
   setEventHandlers() {
     $('.toggle-stories').on('click', this.togglePins.bind(this, 'stories'));
     $('.toggle-resources').on('click', this.togglePins.bind(this, 'resources'));
+    $('#addStoryIcon').on('click', function(){
+      debugger;
+      $('.accordion-container').addClass('.form-accordion-show');
+    });
   }
 
   togglePins(type, evt) {
@@ -66,7 +70,7 @@ class StoryMap {
             '<div class="map-filter">'+location.type_of_abuse+'</div>'+
             '<div class="map-filter">'+location.gender+'</div>'+
             '<a href="'+fbLink+'" class="fb-link"><img src="/static/facebook_logo.png"></a>'+
-            '<div class="read-story-btn">read story</div>'
+            '<button class="btn btn-default read-story-btn">read story</button>'
         });
         marker.addListener('click', function() {
           if (this.openWindow) {
