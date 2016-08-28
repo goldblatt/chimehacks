@@ -1,0 +1,52 @@
+#addStoryIcon{
+	position: absolute;
+    bottom: 30px;
+    max-height: 80px;
+    max-width: 80px;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+}
+
+#accordion{
+}
+
+.accordion-container{
+	position: absolute;
+    top: 0px;
+    display: block;
+    max-width:400px;
+    padding-right: 18px;
+    padding-left: 18px;
+    margin-right: 18px;
+    background-color: #acadbc;
+}
+
+/*.accordion-container {
+	position: absolute;
+    top: 0px;
+    max-width: 0px;
+    height: 100px;
+    background-color: red;
+
+    left: 0px;
+    top: 0px;
+   -webkit-transition-property: max-width;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+   
+
+	transition-property: max-width;
+    transition-duration: 0.5s !important;
+    transition-timing-function: ease-in-out !important;
+}
+.accordion-container-show{
+	position:absolute;
+    max-width: 100px;
+   -webkit-transition-property: max-width;
+    -webkit-transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;    
+    transition-property: max-width;
+    transition-duration: 0.5s !important;
+    transition-timing-function: ease-in-out !important;
+}*/
