@@ -70,6 +70,16 @@ function initAutocomplete() {
         } else {
           console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
           map.map.setCenter({lat:place.geometry.location.lat(), lng: place.geometry.location.lng()});
+            var resources_queries = jQuery.ajax("/api/resources?lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng());
+            var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
+            resources_queries.done(
+              function(resources){
+                map.resources = map.addMarkers(JSON.parse(resources),
+                resourcePin, false, "resources"
+              );
+              map.clearMarkers(map.resources);
+              map.showMarkers(map.resources);
+            }.bind(map));
         }
       });
     });
@@ -101,7 +111,7 @@ class StoryMap {
     });
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
-    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lng=" + lng);
     stories_query.done(
       function(stories){
         console.log(stories)
@@ -109,7 +119,7 @@ class StoryMap {
         storyPin, true, "stories"
     );
       }.bind(this));
-    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lng=" + lng);
     resources_queries.done(
       function(resources){
         this.resources = this.addMarkers(JSON.parse(resources),
