@@ -39,7 +39,7 @@ def add_story(request):
     assailant = request.POST.get("assailant")
     type_of_abuse = request.POST.get("type")
     location = request.POST.get("location")
-    reported = request.POST.get("report")
+    reported = request.POST.get("report", "no")
     story = request.POST.get("story")
     permission = bool(request.POST.get("permission"))
 
@@ -54,6 +54,9 @@ def add_story(request):
         story=story,
         permission=permission   
     )
+
+    if permission: 
+        story.post_to_fb()
 
     return HttpResponse("success")
 
