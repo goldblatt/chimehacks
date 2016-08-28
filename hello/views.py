@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.core import serializers
 
 from .models import *
@@ -55,7 +55,7 @@ def add_story(request):
         permission=permission   
     )
 
-    return JsonResponse("success")
+    return HttpResponse("success")
 
 def create_resource(request):
 	Resources.objects.create(
@@ -73,5 +73,5 @@ def create_resource(request):
 		url = request.GET.get("url")
 	).save()
 
-	return JsonResponse('success')
+	return HttpResponse('success')
 
