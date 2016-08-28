@@ -59,11 +59,13 @@ class StoryMap {
         animation: google.maps.Animation.DROP,
       });
       if (showInfoWindow) {
+        var fbLink = 'https://www.facebook.com/permalink.php?story_fbid=793974667410858&id=793855907422734';
         let infowindow = new google.maps.InfoWindow({
           content: '<div class="story-bubble" data-id="'+marker.markerId+'">'+
             '<div class="map-filter">'+location.assailant+'</div>'+
             '<div class="map-filter">'+location.type_of_abuse+'</div>'+
             '<div class="map-filter">'+location.gender+'</div>'+
+            '<a href="'+fbLink+'" class="fb-link"><img src="/static/facebook_logo.png"></a>'+
             '<div class="read-story-btn">read story</div>'
         });
         marker.addListener('click', function() {
