@@ -24,6 +24,11 @@ body {
     opacity: 0.8;
 }
 
+#intro_modal {
+    text-align: center;
+    top: 80px;
+}
+
 /* Home Page Carousel */
 
 header.carousel {
@@ -184,3 +189,63 @@ html {
 .navbar-header .navbar-brand img {
   padding-top: 10px;
 }
+
+.arrow-img{
+  padding-left: 15px;
+  padding-top: 10px;
+  max-height: 40px;
+  max-width: 100%;
+  float: right;
+}
+
+.filters-list {
+  position: absolute;
+  top: 20ew;
+  font-size: 14;
+  /*height: 180px;*/
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+  height: 0px;
+  transition: height 0.5s;
+}
+
+.expand-filters {
+  height: 180px;
+}
+
+.filter_box {
+  background: white;
+  padding: 10px;
+  float: left;
+  display: inline-block;
+  margin: 10px;
+  opacity: 0.9;
+  color: #5B618a;
+  border-radius: 2px;
+
+}
+
+.filter_box:hover {
+  background: #5B618a;
+  color: white;
+  cursor:pointer;
+}
+.filter_box .selected {
+  background: #5B618a;
+  color: white;
+}
+
+.filters-list ul{
+  list-style: none;
+
+}
+.filters-list li {
+  padding: 0;
+  float: left;
+
+}
+
+/*.filters-list li:hover{
+  color: white;
+}*/

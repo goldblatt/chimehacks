@@ -1,42 +1,141 @@
+var map;
+var reported_lng;
+var reported_lat;
+var stories_data;
+
 function init() {
-  var map = new StoryMap();
+  $('#intro_modal').modal('show');
+  map = new StoryMap();
   //getting user geolocation takes too long to load
   // if ("geolocation" in navigator) {
   //   navigator.geolocation.getCurrentPosition(function(position) {
   //     map = new StoryMap(position.coords.latitude, position.coords.longitude);
-  //   }, function(err) { map = new StoryMap(); });
+  //   }, function(err) { console.log('error loading new map' + err); });
   // }
-  // } else {
-  //   map = new StoryMap();
-  // }
+  initAutocomplete();
+  initForm();
+}
+
+function initForm() {
+
+$('#addStoryIcon').click(function(e) {
+  $('.accordion-container').addClass('accordion-container-show');
+});
+
+$('#submit').click(function(e) {
+  $('.accordion-container').hide();
+  var data = {};
+  e.preventDefault();
+  console.log('submit clicked')
+  data.gender = $('#genderInput').val().trim();
+  data.type = $('#typeInput').val().trim();
+  data.assailant = $('#assailantInput').val().trim();
+  data.location = $('#locationInput').val().trim();
+  data.report = $('input[name="reportInput"]:checked').val();
+  data.story = $('#storyInput').val().trim();
+  data.permission = $('input[name="permissionInput"]:checked').val();
+  data.longitude = reported_lng;
+  data.latitude = reported_lat;
+  $.ajax({
+      type:'POST',
+      url: '/api/add/story',
+      data: data,
+      success: function() {
+          console.log('adding story worked');
+      },
+      error: function() {
+          console.log('error adding story');
+      }
+  });
+});
+
+}
+
+function initAutocomplete() {
+    var input1 = document.getElementById('map_search');
+    var input2 = document.getElementById('specificLocationInput');
+    var mapSearchBox = new google.maps.places.SearchBox(input1);
+    var storyLocationBox = new google.maps.places.SearchBox(input2);
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    mapSearchBox.addListener('places_changed', function() {
+      var places = mapSearchBox.getPlaces();
+      if (!places) {
+      return;
+      }
+      places.forEach(function(place) {
+        if (!place.geometry) {
+          console.log("Returned place contains no geometry");
+          return;
+        } else {
+          console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
+          map.map.setCenter({lat:place.geometry.location.lat(), lng: place.geometry.location.lng()});
+            // var resources_queries = jQuery.ajax("/api/resources?lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng());
+            // var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
+            // resources_queries.done(
+            //   function(resources){
+            //     map.resources = map.resources.concat(
+            //       map.addMarkers(JSON.parse(resources),
+            //       resourcePin, false, "resources")
+            //     );
+            //   map.clearMarkers(map.resources);
+            //   map.showMarkers(map.resources);
+            // }.bind(map));
+        }
+      });
+    });
+
+    storyLocationBox.addListener('places_changed', function() {
+    var places = storyLocationBox.getPlaces();
+      if (!places) {
+      return;
+      }
+      places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      } else {
+        console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
+        reported_lat = place.geometry.location.lat();
+        reported_lng = place.geometry.location.lng();
+        // map = new StoryMap(place.geometry.location.lat(), place.geometry.location.lng());
+      }
+    });
+  });
 }
 
 class StoryMap {
-  constructor(lat = 37.422327, lng = -122.084401) { //facebook: lat = 37.484556, lng = -122.147845
+  constructor(lat = 37.766731, lng = -122.425782) {
+  //facebook: lat = 37.484556, lng = -122.147845
+  // SF: lat = 37.766731, lng = -122.425782
+  // Centering on SF since we have resource pins
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: lat, lng: lng},
       scrollwheel: false,
       zoom: 12
     });
-    var storyPin = new google.maps.MarkerImage("/static/pins_resource.png");
-    var resourcePin = new google.maps.MarkerImage("/static/pins_stories.png");
     // this.stories = this.addMarkers([
     //   {lat: 37.422327, lng: -122.084401, assailant: 'domestic', type_of_abuse: 'rape', gender: 'female', location: 'college campus', reported: 'yes', pk: 1, story: "I was raped by a guy I was dating. I fell asleep and woke up to him raping me. It was very awkward and I never confronted him about it."}], storyPin, 'stories');
     // this.resources = this.addMarkers([
     //   {lat: 37.422327, lng: -122.084401, name: 'Planned Parenthood', address: '1 Hacker Way, Menlo Park', url: 'facebook.com', phone_number: '(408) 666-7867'},
     // {lat: 37.484556, lng: -122.147845, name: 'Facebook', address: '1 Hacker Way, Menlo Park', url: 'facebook.com', phone_number: '(408) 666-7867'}], storyPin, 'resources');
-    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
+    var storyPin = new google.maps.MarkerImage("/static/pins_resource.png");
+    var resourcePin = new google.maps.MarkerImage("/static/pins_stories.png");
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lng=" + lng);
     stories_query.done(
       function(stories){
-        this.stories = this.addMarkers(JSON.parse(stories),
-        storyPin, 'stories'
+        stories_data = JSON.parse(stories);
+        this.stories = this.addMarkers(stories_data,
+        storyPin, "stories"
     );
+        console.log('stories_data: ', stories_data)
       }.bind(this));
-    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lng=" + lng);
     resources_queries.done(
       function(resources){
         this.resources = this.addMarkers(JSON.parse(resources),
-        resourcePin, 'resources'
+        resourcePin, "resources"
     );
       }.bind(this));
 
@@ -49,6 +148,32 @@ class StoryMap {
     $('#addStoryIcon').on('click', function(){
       $('.accordion-container').toggle();
     });
+    $('.toggle-filters').on('click', function(evt) {
+      $('.filters-list').toggleClass('expand-filters');
+    });
+    $('.filter_box').on('click', function(e) {
+      $(this).toggleClass('')
+      var fieldvalue =  $(this).text().trim();
+      var fieldname = $(this).attr('class').split(' ')[1];
+      console.log(map.markers)
+      stories_data = map.filterByField(stories_data, fieldname, fieldvalue)
+      console.log('filtered story data:',stories_data);
+      var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
+      this.addMarkers(stories_data, storyPin, true, "stories");
+      //map.clearMarkers(map.markers);
+      //map.showMarkers(marker_matches)
+    });
+  }
+
+  filterByField(objects, fieldName, fieldValue) {
+    var matches = [];
+    for (let object of objects) {
+
+      if (object['fields'][fieldName]=== fieldValue) {
+        matches.push(object);
+      }
+    }
+    return matches;
   }
 
   filterByField(objects, fieldName, fieldValue) {
@@ -73,13 +198,19 @@ class StoryMap {
     var markers = [];
     for (let location_object of locations) {
       var location = location_object.fields;
+      var lat = parseFloat(location.lat);
+      var lng = parseFloat(location.lng);
+      if (type == "stories") {
+        lat = parseFloat(lat) + Math.random() * .01
+        lng = parseFloat(lng) + Math.random() * .01
+      }
       let marker = new google.maps.Marker({
-        position: {lat: parseFloat(location.lat), lng: parseFloat(location.lng)},
-        map: null,
+        position: {lat: lat, lng: lng},
+        map: this.map,
         icon: pinImg,
         animation: google.maps.Animation.DROP,
       });
-      marker = Object.assign(marker, location);
+
       let infowindow;
       if (type === 'stories') {
         var fbLink = "";
