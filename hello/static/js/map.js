@@ -3,6 +3,7 @@ var reported_lng;
 var reported_lat;
 
 function init() {
+  $('#intro_modal').modal('show');
   map = new StoryMap();
   //getting user geolocation takes too long to load
   // if ("geolocation" in navigator) {
@@ -118,7 +119,7 @@ class StoryMap {
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lng=" + lng);
     stories_query.done(
       function(stories){
-        console.log(stories)
+    //    console.log(stories)
         this.stories = this.addMarkers(JSON.parse(stories),
         storyPin, true, "stories"
     );
@@ -180,7 +181,7 @@ class StoryMap {
       }
       let marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
-        map: null,
+        map: this.map,
         icon: pinImg,
         markerId: location.id,
         animation: google.maps.Animation.DROP,
