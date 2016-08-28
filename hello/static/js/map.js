@@ -157,7 +157,7 @@ class StoryMap {
       var fieldname = $(this).attr('class').split(' ')[1];
       var filtered_stories_data = map.filterByField(stories_data, fieldname, fieldvalue);
       console.log('filtered story data:',filtered_stories_data);
-      var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
+      var storyPin = new google.maps.MarkerImage("/static/pins_resource.png");
       map.clearMarkers(map.stories);
       console.log('after clearMarkers', map.stories, stories_data)
       map.stories = map.addMarkers(filtered_stories_data, storyPin, true, "stories");
@@ -187,7 +187,7 @@ class StoryMap {
     $target.toggleClass('selected');
     if (type == 'stories') {
       if ($target.hasClass('selected')) {
-        var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
+        var storyPin = new google.maps.MarkerImage("/static/pins_resource.png");
         map.clearMarkers(map.stories);
         this.stories = map.addMarkers(stories_data, storyPin, true, "stories");
         this.markers = this.stories;
