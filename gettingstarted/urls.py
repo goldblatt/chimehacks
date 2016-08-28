@@ -13,4 +13,5 @@ urlpatterns = [
     url(r'^$', hello.views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/stories', hello.views.stories, name="stories"),
+    url(r'^api/resources', hello.views.resources, name="resources"),
 ]

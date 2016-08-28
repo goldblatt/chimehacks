@@ -24,7 +24,9 @@ class Stories(models.Model):
     def post_to_fb(self):
     	page_token = self.get_page_token()
     	r = requests.post(self.fb_origin + self.page_id + '/feed?message=' + self.html_text + '&access_token=' + page_token)
-    	print ("response from posting to FB page: " + r.text)
+    	resp = json.loads(r.text)
+    	post_id = resp["id"]
+    	# need to store the post_id
 
 class Resources(models.Model):
 	latitude = models.DecimalField(max_digits=20, decimal_places=10)
