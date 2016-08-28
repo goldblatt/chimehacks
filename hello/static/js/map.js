@@ -60,8 +60,10 @@ class StoryMap {
     var markers = [];
     for (let location_object of locations) {
       var location = location_object.fields;
+      var partial_randomized_lat = parseFloat(location.lat) + Math.random() * .01
+      var partial_randomized_lng = parseFloat(location.lng) + Math.random() * .01
       let marker = new google.maps.Marker({
-        position: {lat: parseFloat(location.lat), lng: parseFloat(location.lng)},
+        position: {lat: partial_randomized_lat, lng: partial_randomized_lng},
         map: null,
         icon: pinImg,
         markerId: location.id,
@@ -98,6 +100,7 @@ class StoryMap {
 
   // Sets the map on all markers in the array.
   setMapOnAll(markers, map) {
+    console.log(markers);
     for (let marker of markers) {
       marker.setMap(map);
     }
