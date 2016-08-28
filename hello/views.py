@@ -26,7 +26,8 @@ def resources(request):
     lng = float(request.GET.get("lng", SF_DEFAULT_LNG))
     lat = float(request.GET.get("lat", SF_DEFAULT_LAT))
 
-    resources = Resources.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    #resources = Resources.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    resources = Resources.objects.all()
     serialized_resources = serializers.serialize("json", resources)
 
     return JsonResponse(serialized_resources, safe=False)

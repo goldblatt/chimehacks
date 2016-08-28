@@ -70,17 +70,17 @@ function initAutocomplete() {
         } else {
           console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
           map.map.setCenter({lat:place.geometry.location.lat(), lng: place.geometry.location.lng()});
-            var resources_queries = jQuery.ajax("/api/resources?lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng());
-            var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
-            resources_queries.done(
-              function(resources){
-                map.resources = map.resources.concat(
-                  map.addMarkers(JSON.parse(resources),
-                  resourcePin, false, "resources")
-                );
-              map.clearMarkers(map.resources);
-              map.showMarkers(map.resources);
-            }.bind(map));
+            // var resources_queries = jQuery.ajax("/api/resources?lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng());
+            // var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
+            // resources_queries.done(
+            //   function(resources){
+            //     map.resources = map.resources.concat(
+            //       map.addMarkers(JSON.parse(resources),
+            //       resourcePin, false, "resources")
+            //     );
+            //   map.clearMarkers(map.resources);
+            //   map.showMarkers(map.resources);
+            // }.bind(map));
         }
       });
     });
