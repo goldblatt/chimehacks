@@ -70,6 +70,17 @@ function initAutocomplete() {
         } else {
           console.log('geometry is: ', place.geometry.location.lat(), place.geometry.location.lng())
           map.map.setCenter({lat:place.geometry.location.lat(), lng: place.geometry.location.lng()});
+            var resources_queries = jQuery.ajax("/api/resources?lat=" + place.geometry.location.lat() + "&lng=" + place.geometry.location.lng());
+            var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
+            resources_queries.done(
+              function(resources){
+                map.resources = map.resources.concat(
+                  map.addMarkers(JSON.parse(resources),
+                  resourcePin, false, "resources")
+                );
+              map.clearMarkers(map.resources);
+              map.showMarkers(map.resources);
+            }.bind(map));
         }
       });
     });
@@ -93,7 +104,10 @@ function initAutocomplete() {
 }
 
 class StoryMap {
-  constructor(lat = 37.422327, lng = -122.084401) { //facebook: lat = 37.484556, lng = -122.147845
+  constructor(lat = 37.766731, lng = -122.425782) { 
+  //facebook: lat = 37.484556, lng = -122.147845
+  // SF: lat = 37.766731, lng = -122.425782
+  // Centering on SF since we have resource pins
     this.map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: lat, lng: lng},
       scrollwheel: false,
@@ -101,9 +115,7 @@ class StoryMap {
     });
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
-    // this.stories = this.addMarkers([
-    //   {lat: 37.422327, lng: -122.084401, assailant: 'domestic', type_of_abuse: 'rape', gender: 'female', location: 'college campus', reported: 'yes', pk: 1}], storyPin, true);
-    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
+    var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lng=" + lng);
     stories_query.done(
       function(stories){
         console.log(stories)
@@ -111,7 +123,7 @@ class StoryMap {
         storyPin, true, "stories"
     );
       }.bind(this));
-    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lon=" + lng);
+    var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lng=" + lng);
     resources_queries.done(
       function(resources){
         this.resources = this.addMarkers(JSON.parse(resources),
