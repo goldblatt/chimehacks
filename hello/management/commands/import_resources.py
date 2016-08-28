@@ -14,7 +14,9 @@ class Command(BaseCommand):
                 'London': {'lat': '51.431817', 'lng': '-0.070920'}
             }
         for city, coordinates in cities.iteritems():
+            print("-----------------------------")
             print("Importing resources for " + city)
+            print("-----------------------------")
             lat = coordinates['lat']
             lng = coordinates['lng']
             r = requests.get("https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=" + api_key + "&location=" + lat + "," + lng + "&radius=50000&name=sexual%20assault")
@@ -26,6 +28,7 @@ class Command(BaseCommand):
                 results = r.json()['results']
             for result in results:
                 place_id = result['place_id']
+                print("Importing " + result['name'])
                 if not Resources.objects.filter(place_id=place_id):
                     Resources.objects.create(
                         latitude=result['geometry']['location']['lat'], 
