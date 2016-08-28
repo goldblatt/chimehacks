@@ -104,7 +104,6 @@ class StoryMap {
 
   // Sets the map on all markers in the array.
   setMapOnAll(markers, map) {
-    console.log(markers);
     for (let marker of markers) {
       marker.setMap(map);
     }
