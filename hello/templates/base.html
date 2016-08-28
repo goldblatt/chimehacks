@@ -26,6 +26,7 @@
     <script src="{% static 'js/jquery.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/map.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -55,16 +56,19 @@
          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
              <ul class="nav navbar-nav navbar-right">
                <li>
-                 <a class="toggle-stories">Toggle Stories</a>
+                 <a class="toggle-stories">Stories</a>
                </li>
                <li>
-                 <a class="toggle-resources">Toggle Resources</a>
+                 <a class="toggle-resources">Resources</a>
+               </li>
+               <li>
+                 <a class="toggle-filters">Filter By ▾</a>
                </li>
              </ul>
              <div class="col-sm-3 col-md-3">
                <form id="search-form" class="navbar-form" role="search">
                  <div class="input-group">
-                   <input type="text" class="form-control search-term" placeholder="Search" name="q">
+                   <input type="text" class="form-control search-term" id = "map_search" placeholder="Search" name="q">
                    <div class="input-group-btn">
                      <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
                    </div>
@@ -75,6 +79,39 @@
          <!-- /.navbar-collapse -->
      </div>
      <!-- /.container -->
+     <div class="filters-list">
+        <ul>
+            <div class="filter_box gender"><li> cis-woman </li></div>
+            <div class="filter_box gender"><li> trans-woman </li></div>
+            <div class="filter_box gender"><li> trans-woman </li></div>
+            <div class="filter_box gender"><li> cis-men </li></div>
+            <div class="filter_box gender"><li> non-binary gender </li></div>
+            <div class="filter_box gender"><li> other gender </li></div>
+            <div class="filter_box assailant"><li> romantic partner </li></div>
+            <div class="filter_box assailant"><li> friend </li></div>
+            <div class="filter_box assailant"><li> teacher </li></div>
+            <div class="filter_box assailant"><li> boss </li></div>
+            <div class="filter_box assailant"><li> family member </li></div>
+            <div class="filter_box assailant"><li> stranger </li></div>
+            <div class="filter_box assailant"><li> police officer </li></div>
+            <div class="filter_box type"><li> rape </li></div>
+            <div class="filter_box type"><li> controlling behaviour </li></div>
+            <div class="filter_box type"><li> partner assault </li></div>
+            <div class="filter_box type"><li> stalking </li></div>
+            <div class="filter_box type"><li> indecent exposure </li></div>
+            <div class="filter_box type"><li> pornography </li></div>
+            <div class="filter_box type"><li> cyber bullying </li></div>
+            <div class="filter_box type"><li> genital mutilation </li></div>
+            <div class="filter_box type"><li> threats of physical violence </li></div>
+            <div class="filter_box type"><li> incest </li></div>
+            <div class="filter_box location"><li> public spaces </li></div>
+            <div class="filter_box location"><li> college campus </li></div>
+            <div class="filter_box location"><li> at/near home </li></div>
+            <div class="filter_box location"><li> at/near relative's homes </li></div>
+            <div class="filter_box report"><li> reported </li></div>
+            <div class="filter_box report"><li> not reported </li></div>
+        </ul>
+
  </nav>
 
     <!-- Page Content -->

@@ -19,7 +19,7 @@ class Stories(models.Model):
         ("boss", "boss"),  
         ("family member", "family member"),  
         ("stranger", "stranger"), 
-        ("police", "police"), 
+        ("police officer", "police officer"), 
         ("do not wish to disclose", "do not wish to disclose") 
     ]
     TYPE_OF_ABUSE_CONSTANTS = [
@@ -37,7 +37,7 @@ class Stories(models.Model):
     LOCATION_CONSTANTS = [
         ("in a public space", "in a public space"), 
         ("on a college campus", "on a college campus"),  
-        ("at or near your home", "at or near your home"), 
+        ("at or near home", "at or near your home"), 
         ("at or near a relative's home", "at or near a relative's home") 
     ]
 
@@ -68,29 +68,42 @@ class Stories(models.Model):
 #Stories.objects.create(html_text="hello world", timestamp=datetime.now(), lng=0, lat=0)
 
     def get_page_token(self):
-    	r = requests.get(self.fb_origin + 'me/accounts?access_token=' + self.access_token)
-    	#print r.text
-    	import pdb; pdb.set_trace()
-    	resp = json.loads(r.text)
-    	return resp["data"][0]["access_token"]
+        r = requests.get(self.fb_origin + 'me/accounts?access_token=' + self.access_token)
+        resp = json.loads(r.text)
+        return resp["data"][0]["access_token"]
+
+    def check_not_null(self, val): 
+        return val != "do not wish to disclose"
+
+    def can_make_fb_post(self): 
+        return self.check_not_null(self.type_of_abuse) or self.check_not_null(self.assailant)
+
+    def make_fb_message(self): 
+        gender = "a" + self.gender if self.check_not_null(self.gender) else "an anonymous person"
+        abuse = self.type_of_abuse if self.check_not_null(self.type_of_abuse) else "an act of sexual violence"
+        assailant = self.assailant if self.check_not_null(self.assailant) else "a fellow human"
+        location = " " + self.location if self.check_not_null(self.location) else ""
+        return "Today, {0} experienced {1} committed by {2}{3}. End sexual violence.".format(gender, abuse, assailant, location)
 
     def post_to_fb(self):
-    	page_token = self.get_page_token()
-    	r = requests.post(self.fb_origin + self.page_id + '/feed?message=' + self.html_text + '&access_token=' + page_token)
-    	resp = json.loads(r.text)
-    	post_id = resp["id"]
-    	# need to store the post_id
+        if self.can_make_fb_post(): 
+            page_token = self.get_page_token()
+            r = requests.post(self.fb_origin + self.page_id + '/feed?message=' + self.make_fb_message() + '&access_token=' + page_token)
+            resp = json.loads(r.text)
+            post_id = resp["id"]
+            self.post_id = post_id
+            self.save()
 
 class Resources(models.Model):
-	lat = models.DecimalField(max_digits=20, decimal_places=10)
-	lng = models.DecimalField(max_digits=20, decimal_places=10)
-	place_id = models.TextField(null=True, blank=True)
-	name = models.TextField()
-	address = models.TextField(null=True, blank=True)
-	city = models.TextField(null=True, blank=True)
-	state = models.TextField(null=True, blank=True)
-	country = models.TextField(null=True, blank=True)
-	zip_code = models.TextField(null=True, blank=True)
-	description = models.TextField(null=True, blank=True)
-	phone_number = models.TextField(null=True, blank=True)
-	url = models.TextField(null=True, blank=True)
+    lat = models.DecimalField(max_digits=20, decimal_places=10)
+    lng = models.DecimalField(max_digits=20, decimal_places=10)
+    place_id = models.TextField(null=True, blank=True)
+    name = models.TextField()
+    address = models.TextField(null=True, blank=True)
+    city = models.TextField(null=True, blank=True)
+    state = models.TextField(null=True, blank=True)
+    country = models.TextField(null=True, blank=True)
+    zip_code = models.TextField(null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    phone_number = models.TextField(null=True, blank=True)
+    url = models.TextField(null=True, blank=True)

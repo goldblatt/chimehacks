@@ -26,7 +26,8 @@ def resources(request):
     lng = float(request.GET.get("lng", SF_DEFAULT_LNG))
     lat = float(request.GET.get("lat", SF_DEFAULT_LAT))
 
-    resources = Resources.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    #resources = Resources.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    resources = Resources.objects.all()
     serialized_resources = serializers.serialize("json", resources)
 
     return JsonResponse(serialized_resources, safe=False)
@@ -39,7 +40,7 @@ def add_story(request):
     assailant = request.POST.get("assailant")
     type_of_abuse = request.POST.get("type")
     location = request.POST.get("location")
-    reported = request.POST.get("report")
+    reported = request.POST.get("report", "no")
     story = request.POST.get("story")
     permission = bool(request.POST.get("permission"))
 
@@ -54,6 +55,9 @@ def add_story(request):
         story=story,
         permission=permission   
     )
+
+    if permission: 
+        story.post_to_fb()
 
     return HttpResponse("success")
 
