@@ -124,7 +124,7 @@ class StoryMap {
         this.stories = this.addMarkers(stories_data,
         storyPin, true, "stories"
     );
-        console.log('stories_data: ', stories_data)
+        console.log('stories_data after query complete: ', stories_data)
       }.bind(this));
     var resources_queries = jQuery.ajax("/api/resources?lat=" + lat + "&lng=" + lng);
     resources_queries.done(
@@ -150,17 +150,18 @@ class StoryMap {
       $(this).toggleClass('')
       var fieldvalue =  $(this).text().trim();
       var fieldname = $(this).attr('class').split(' ')[1];
-      console.log(map.markers)
-      stories_data = map.filterByField(stories_data, fieldname, fieldvalue)
-      console.log('filtered story data:',stories_data);
+      var filtered_stories_data = map.filterByField(stories_data, fieldname, fieldvalue);
+      console.log('filtered story data:',filtered_stories_data);
       var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
-      this.addMarkers(stories_data, storyPin, true, "stories");
-      //map.clearMarkers(map.markers);
-      //map.showMarkers(marker_matches)
+      map.clearMarkers(map.stories);
+      console.log('after clearMarkers', map.stories, stories_data)
+      map.stories = map.addMarkers(filtered_stories_data, storyPin, true, "stories");
+      console.log('after addMarkers', map.stories, stories_data)
     });
   }
 
   filterByField(objects, fieldName, fieldValue) {
+    console.log('inside filterByField', objects, fieldName, fieldValue)
     var matches = [];
     for (let object of objects) {
 
@@ -171,21 +172,26 @@ class StoryMap {
     return matches;
   }
 
-  filterByField(objects, fieldName, fieldValue) {
-    var matches = [];
-    for (let object of objects) {
-      if (object[fieldName] === fieldValue) {
-        matches.push(object);
-      }
-    }
-    return matches;
-  }
-
   togglePins(type, evt) {
+    // var $target = $(evt.currentTarget);
+    // $target.toggleClass('selected');
+    // var markers = (type === 'stories' ? this.stories : this.resources);
+    // $target.hasClass('selected') ? this.showMarkers(markers) : this.clearMarkers(markers);
+
     var $target = $(evt.currentTarget);
     $target.toggleClass('selected');
-    var markers = (type === 'stories' ? this.stories : this.resources);
-    $target.hasClass('selected') ? this.showMarkers(markers) : this.clearMarkers(markers);
+    if (type == 'stories') {
+      if ($target.hasClass('selected')) {
+        var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
+        map.clearMarkers(map.stories);
+        this.stories = map.addMarkers(stories_data, storyPin, true, "stories");
+        this.markers = this.stories;
+      } else {
+        this.clearMarkers(this.stories);
+      }
+    } else {
+      $target.hasClass('selected') ? this.showMarkers(this.resources) : this.clearMarkers(this.resources);
+    }
   }
 
   // Adds a marker to the map.
