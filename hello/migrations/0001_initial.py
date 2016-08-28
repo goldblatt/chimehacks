@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('html_text', models.TextField(blank=True, null=True)),
-                ('timestamp', models.DateTimeField()),
+                ('timestamp', models.DateTimeField(auto_now_add=True)),
                 ('longitude', models.DecimalField(decimal_places=10, max_digits=20)),
                 ('latitude', models.DecimalField(decimal_places=10, max_digits=20)),
             ],

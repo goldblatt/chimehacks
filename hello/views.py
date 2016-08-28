@@ -9,11 +9,11 @@ def index(request):
     return render(request, 'index.html')
 
 def stories(request): 
-	longitude = request.parameters.get("longitude")
-	latitude = request.parameters.get("latitude")
+	longitude = request.GET.get("longitude")
+	latitude = request.GET.get("latitude")
 
 	stories = Stories.objects.all()
 
-	return render(request, 'db.html', {'greetings': stories})
+	return render(request, 'stories.html', {'stories': stories})
 
 

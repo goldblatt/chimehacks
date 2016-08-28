@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 class Stories(models.Model): 
     html_text = models.TextField(null=True, blank=True)
-    timestamp = models.DateTimeField()  # Client timestamp
+    timestamp = models.DateTimeField(auto_now_add=True)  # Client timestamp
     longitude = models.DecimalField(max_digits=20, decimal_places=10)
     latitude = models.DecimalField(max_digits=20, decimal_places=10)
 
