@@ -1,0 +1,17 @@
+body, html {
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+
+.container #map {
+  width: 100vw;
+  height: 100vh;
+  position: static !important;
+}
+
+.container .nav a {
+  cursor: pointer;
+}
+.container .nav a.selected {
+  color: white;
+}
