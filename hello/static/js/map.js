@@ -18,8 +18,6 @@ class StoryMap {
       scrollwheel: false,
       zoom: 12
     });
-    var stories;
-    var resources;
     var storyPin = new google.maps.MarkerImage("/static/pins_stories.png");
     var resourcePin = new google.maps.MarkerImage("/static/pins_resource.png");
     var stories_query = jQuery.ajax("/api/stories?lat=" + lat + "&lon=" + lng);
