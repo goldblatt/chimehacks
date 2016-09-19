@@ -1,5 +1,5 @@
 #addStoryIcon{
-	position: absolute;
+	position: fixed;
   bottom: 30px;
   max-height: 80px;
   max-width: 80px;
@@ -10,12 +10,11 @@
 }
 
 #addStoryIcon:hover {
-<<<<<<< HEAD
   opacity: 0.6;
 }
 
 #safe-exit-icon {
- 	position: absolute;
+ 	position: fixed;
 	bottom: 30px;
   max-height: 80px;
   max-width: 80px;
@@ -29,69 +28,46 @@
   opacity: 0.8;
 }
 
-#safe-exit-icon {
-	position: absolute;
-  bottom: 30px;
-  max-height: 80px;
-  max-width: 80px;
-  height: auto;
-  width: auto;
-  cursor: pointer;
-	right: 30px;
-}
-#safe-exit-icon:hover {
-	opacity: 0.8;
-}
-
 .container .panel-default>.panel-heading {
 	background-color: #eff0f5;
 }
 
 .accordion-container{
 	position: absolute;
-    top: 0px;
-		left: 0px;
-    width:400px;
-    padding-right: 18px;
-    padding-left: 18px;
-		padding-top: 68px;
-    margin-right: 18px;
-    background-color: white;
-		border-radius: 2px;
-		display: none;
-		border: 1px solid #ccc;
+  top: 0px;
+	left: -400px;
+  width:400px;
+  padding-right: 18px;
+  padding-left: 18px;
+	padding-top: 68px;
+  margin-right: 18px;
+  background-color: white;
+	border-radius: 2px;
+	border: 1px solid #ccc;
+	transform: translateX(0px);
+	transition: transform 0.2s;
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+}
+
+.slide-btn {
+	position: absolute;
+	left: 399px;
+	top: 135px;
+	width: 23px;
+  height: 48px;
+  cursor: pointer;
+	background-color: white;
+  box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+	color: #2C363F;
+	padding: 5px;
+  font-size: 12px;
+  padding-top: 15px;
+}
+
+.move-accordion {
+	transform: translateX(400px);
 }
 
 .panel-body {
 	width: 362px;
-
 }
-
-/*.accordion-container {
-	position: absolute;
-    top: 0px;
-    max-width: 0px;
-    height: 100px;
-    background-color: red;
-
-    left: 0px;
-    top: 0px;
-   -webkit-transition-property: max-width;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;
-
-
-	transition-property: max-width;
-    transition-duration: 0.5s !important;
-    transition-timing-function: ease-in-out !important;
-}
-.accordion-container-show{
-	position:absolute;
-    max-width: 100px;
-   -webkit-transition-property: max-width;
-    -webkit-transition-duration: 0.5s;
-    -webkit-transition-timing-function: ease-in-out;
-    transition-property: max-width;
-    transition-duration: 0.5s !important;
-    transition-timing-function: ease-in-out !important;
-}*/

@@ -200,12 +200,10 @@ html {
 
 .filters-list {
   position: absolute;
-  top: 20ew;
-  font-size: 14;
-  /*height: 180px;*/
   margin-right: auto;
   margin-left: auto;
-  overflow: hidden;
+  margin-top: 5px;
+  overflow-y: scroll;
   height: 0px;
   transition: height 0.5s;
 }
@@ -216,13 +214,16 @@ html {
 
 .filter_box {
   background: white;
-  padding: 10px;
+  padding: 5px;
   float: left;
-  display: inline-block;
-  margin: 10px;
+  margin-top: 5px;
+  display:
+  height: 0px;inline-block;
+  margin: 5px;
   opacity: 0.9;
   color: #5B618a;
   border-radius: 2px;
+  font-size: 12px;
 
 }
 

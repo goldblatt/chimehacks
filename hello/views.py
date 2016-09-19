@@ -13,16 +13,17 @@ def index(request):
     # return HttpResponse('Hello from Python!')
     return render(request, 'index.html')
 
-def stories(request): 
+def stories(request):
     lng = float(request.GET.get("lng", SF_DEFAULT_LNG))
     lat = float(request.GET.get("lat", SF_DEFAULT_LAT))
 
-    stories = Stories.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    # stories = Stories.objects.filter(lat__lte=lat + 2).filter(lat__gte=lat - 2).filter(lng__lte=lng + 2).filter(lng__gte=lng - 2)
+    stories = Stories.objects.all()
     serialized_stories = serializers.serialize("json", stories)
 
     return JsonResponse(serialized_stories, safe=False)
 
-def resources(request): 
+def resources(request):
     lng = float(request.GET.get("lng", SF_DEFAULT_LNG))
     lat = float(request.GET.get("lat", SF_DEFAULT_LAT))
 
@@ -33,9 +34,9 @@ def resources(request):
     return JsonResponse(serialized_resources, safe=False)
 
 
-def add_story(request): 
-    lng = float(request.POST.get("lng", SF_DEFAULT_LNG))
-    lat = float(request.POST.get("lat", SF_DEFAULT_LAT))
+def add_story(request):
+    lng = float(request.POST.get("longitude", SF_DEFAULT_LNG))
+    lat = float(request.POST.get("latitude", SF_DEFAULT_LAT))
     gender = request.POST.get("gender")
     assailant = request.POST.get("assailant")
     type_of_abuse = request.POST.get("type")
@@ -47,16 +48,16 @@ def add_story(request):
     story = Stories.objects.create(
         lng=lng,
         lat=lat,
-        gender=gender, 
-        assailant=assailant, 
-        type_of_abuse=type_of_abuse, 
-        location=location, 
-        report=reported, 
+        gender=gender,
+        assailant=assailant,
+        type_of_abuse=type_of_abuse,
+        location=location,
+        report=reported,
         story=story,
-        permission=permission   
+        permission=permission
     )
 
-    if permission: 
+    if permission:
         story.post_to_fb()
 
     return HttpResponse("success")
@@ -78,4 +79,3 @@ def create_resource(request):
 	).save()
 
 	return HttpResponse('success')
-

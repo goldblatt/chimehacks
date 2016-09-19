@@ -3,6 +3,7 @@
 <a href="http://www.google.com"><img id="safe-exit-icon" src="{% static 'icon_exit.png' %}"/></a>
 
 <div class="accordion-container">
+	<div class="slide-btn">▶︎</div>
 	<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 	  <div class="panel panel-default">
 	    <div class="panel-heading" role="tab" id="headingOne">
@@ -225,40 +226,3 @@
 	  </div>
 	</div>
 </div>
-
-<!-- <div class='accordion-container'>some box!!!!!!</div> -->
-
-<script type="text/javascript">
-//$('#collapseThree').collapse('toggle')
-// $('#addStoryIcon').click(function(e) {
-//   $('.accordion-container').addClass('accordion-container-show');
-// });
-
-$('#submit').click(function(e) {
-	$('.accordion-container').hide();
-	var data = {};
-  e.preventDefault();
-  console.log('submit clicked')
-  data.gender = $('#genderInput').val().trim();
-  data.type = $('#typeInput').val().trim();
-  data.assailant = $('#assailantInput').val().trim();
-  data.location = $('#locationInput').val().trim();
-  data.report = $('input[name="reportInput"]:checked').val();
-  data.story = $('#storyInput').val().trim();
-  data.permission = $('input[name="permissionInput"]:checked').val();
-
-  //TODO: data.longitude and data.latitude
-  console.log(data)
-  $.ajax({
-      type:'POST',
-      url: '/api/add/story',
-      data: data,
-      success: function() {
-          console.log('adding story worked');
-      },
-      error: function() {
-          console.log('error adding story');
-      }
-  });
-});
-</script>

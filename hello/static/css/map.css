@@ -1,12 +1,14 @@
 body, html {
-  overflow-x: hidden;
-  overflow-y: hidden;
+  /*overflow-x: hidden;*/
+  /*overflow-y: hidden;*/
 }
 
 .container #map {
   width: 100vw;
   height: 100vh;
-  position: static !important;
+  position: fixed !important;
+  left: 0;
+  top: 0;
 }
 
 .container .nav a {
@@ -14,6 +16,15 @@ body, html {
 }
 .container .nav a.selected {
   color: white;
+}
+
+.search-icon {
+  cursor: default;
+}
+
+.search-icon:hover {
+  background-color: white;
+  border-color: #ccc;
 }
 
 .story-bubble {
@@ -25,14 +36,13 @@ body, html {
 .map-filter {
   float: left;
   margin: 3px;
-  padding: 6px;
+  padding: 3px;
   vertical-align: middle;
   text-align: center;
-  height: 35px;
   border-radius: 2px;
   background-color: #5B618A;
   color: white;
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .read-story-btn {
@@ -65,6 +75,10 @@ body, html {
   display: block;
 }
 
+.no-fb-link {
+  display: none;
+}
+
 .fb-btn:hover {
   opacity: 0.8;
   text-decoration: none;
@@ -85,7 +99,7 @@ body, html {
   border-radius: 2px;
   color: #2C363F;
   max-height: 200px;
-  overflow: hidden;
+  overflow-y: scroll;
   clear: left;
   padding: 6px;
   margin-left: 3px;
